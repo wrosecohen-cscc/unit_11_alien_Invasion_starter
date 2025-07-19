@@ -1,13 +1,16 @@
 import pygame
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    # Import arsenal and alien_invasion while avoiding circular logic error.
     from alien_invasion import AlienInvasion
+    from arsenal import Arsenal
 
 class Ship:
     """A class to manage the ship."""
 
-    def __init__(self, game: 'AlienInvasion') -> None:
+    def __init__(self, game: 'AlienInvasion', arsenal: 'Arsenal') -> None:
         """Initialize the ship and set its starting position."""
         self.game = game
         self.settings = game.settings
@@ -33,8 +36,15 @@ class Ship:
         # Store a float for the ship's exact horizontal position. 
         self.x = float(self.rect.x)
 
+        # Set up arsenal.
+        self.arsenal = arsenal
 
-    def update(self) -> None:
+    def update(self):
+        """Update the ships position and all active bullets."""
+        self._update_ship_movement()
+        self.arsenal.update_arsenal()
+    
+    def _update_ship_movement(self) -> None:
         """Update the ship's position based on movement flags."""
         # Update the ship's x value, ot the rect.
         temp_speed = self.settings.ship_speed
@@ -43,10 +53,15 @@ class Ship:
         elif self.moving_left and self.rect.left > self.boundaries.left:
             self.x -= temp_speed
 
-        # Update rect onject from self.x.
+        # Update rect object from self.x.
         self.rect.x = self.x
     
 
     def draw(self) -> None:
         """Draw the ship at its current location."""
+        self.arsenal.draw()
         self.screen.blit(self.image, self.rect)
+
+    def fire(self) -> bool:
+        """Attempt to fire a bullet; returns True if a bullet was fired successfully."""
+        return self.arsenal.fire_bullet()
