@@ -5,19 +5,19 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     # Import alien_invasion while avoiding circular logic error.
-    from alien_invasion import AlienInvasion
+    from alien_fleet import AlienFleet
 
 class Alien(Sprite):
     """A class to manage aliens."""
 
-    def __init__(self, game: 'AlienInvasion', x: float , y: float):
+    def __init__(self, fleet: 'AlienFleet', x: float , y: float):
         """Create an alien object at the _____ position."""
         super().__init__()
 
-        self.game = game
-        self.screen = game.screen
-        self.boundries = game.screen.get_rect()
-        self.settings = game.settings
+        self.game = fleet.game
+        self.screen = fleet.game.screen
+        self.boundries = fleet.game.screen.get_rect()
+        self.settings = fleet.game.settings
 
         # Load the bullet.
         self.image = pygame.image.load(self.settings.alien_file)
