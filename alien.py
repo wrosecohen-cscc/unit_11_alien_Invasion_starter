@@ -11,7 +11,7 @@ class Alien(Sprite):
     """A class to manage aliens."""
 
     def __init__(self, game: 'AlienInvasion', x: float , y: float):
-        """Create a bullet object at the ship's current position."""
+        """Create an alien object at the _____ position."""
         super().__init__()
 
         self.game = game
@@ -32,11 +32,17 @@ class Alien(Sprite):
         
 
         # Store the alien's position as a float.
-        # self.y = float(self.rect.y)
+        self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def update(self):
-        pass
+        temp_speed = self.settings.fleet_speed
+        self.x += temp_speed
+        self.rect.x = self.x
+
+
+    
 
     def draw_alien(self):
-        """Draw the bullet to the screen."""
+        """Draw the alien to the screen."""
         self.screen.blit(self.image, self.rect)
