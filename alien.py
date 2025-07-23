@@ -37,10 +37,16 @@ class Alien(Sprite):
 
     def update(self):
         temp_speed = self.settings.fleet_speed
-        self.x += temp_speed
+
+        if self.check_edges():
+            self.settings.fleet_direction *= -1
+
+        self.x += temp_speed * self.settings.fleet_direction
         self.rect.x = self.x
 
-
+    def check_edges(self) -> bool:
+        "Switch direction when edge is hit."
+        return(self.rect.right >= self.boundries.right or self.rect.left <= self.boundries.left)
     
 
     def draw_alien(self):
