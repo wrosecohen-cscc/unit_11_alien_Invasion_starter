@@ -82,7 +82,7 @@ class AlienFleet:
                 self._drop_alien_fleet()
                 self.fleet_direction *= -1
                 break
-            
+
     def _drop_alien_fleet(self):
         """Comment."""
         for alien in self.fleet:
@@ -100,8 +100,16 @@ class AlienFleet:
         for alien in self.fleet:
             alien.draw_alien()
 
-
-        
+    def check_collisions(self, other_group):
+        """Comment."""
+        return pygame.sprite.groupcollide(self.fleet, other_group, True, True)
+    
+    def check_fleet_bottom(self):
+        alien: Alien
+        for alien in self.fleet:
+            if alien.rect.bottom >= self.settings.screen_height:
+                return True
+        return False    
 
 
 
