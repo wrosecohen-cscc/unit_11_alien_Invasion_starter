@@ -7,6 +7,7 @@ class Settings:
         """Initialize the game's static settings."""
         self.name: str = 'Alien Invasion'
         self.difficulty_scale = 1.1
+        self.scores_file = Path.cwd() / 'Assets' / 'files' / 'scores.json'
 
         # Screen settings.
         self.screen_width = 1200
