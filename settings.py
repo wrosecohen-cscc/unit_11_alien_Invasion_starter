@@ -59,6 +59,10 @@ class Settings:
         self.fleet_speed = 2
         self.fleet_drop_speed = 40
 
+        # Scoring settings. 
+        self.alien_points = 50 
+
+
     def increase_difficulty(self):
         """Increase the difficulty of the game."""
         # Ship settings.
