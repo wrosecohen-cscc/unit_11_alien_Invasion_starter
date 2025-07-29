@@ -40,7 +40,7 @@ class AlienInvasion:
 
 
         self.ship = Ship(self, Arsenal(self))
-        self.alien_fleet = AlienFleet(self)
+        self.alien_fleet = AlienFleet(self )
         self.alien_fleet.create_fleet()
 
         self.play_button = Button(self, 'Play')
@@ -58,8 +58,8 @@ class AlienInvasion:
             self.clock.tick(self.settings.FPS)
 
     def _check_collisions(self):
-        """Comment."""
-        # Check collisions for ship.
+        """Check for all in-game collisions and apply effects."""
+        # Check ship-alien collisions.
         if self.ship.check_collisions(self.alien_fleet.fleet):
             self._check_game_status()
 
@@ -76,6 +76,7 @@ class AlienInvasion:
             self.impact_sound.fadeout(500)
             self.game_stats.update(collisions)
 
+        # If all aliens are destroyed, begin next level.
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()
             self.settings.increase_difficulty()
@@ -85,7 +86,7 @@ class AlienInvasion:
             # Update HUD view.
 
     def _check_game_status(self):
-        """Comment."""
+        """Update game status after a collision or end of level."""
         if self.game_stats.remaining_ships > 0:
             self.game_stats.remaining_ships -= 1
             self._reset_level()
@@ -94,7 +95,7 @@ class AlienInvasion:
             self.game_active = False
 
     def _reset_level(self):
-        """Comment."""
+        """Clear bullets and aliens, then create new fleet."""
         # Reset arsenal and alien fleet.
         self.ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
@@ -103,7 +104,7 @@ class AlienInvasion:
         self.alien_fleet.create_fleet()
 
     def restart_game(self):
-        """Comment."""
+        """Reset all dynamic settings and stats to start a new game."""
         # Initialize dynamic settings.
         self.settings.initialize_dynamic_settings()
 
@@ -123,11 +124,13 @@ class AlienInvasion:
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
+        # Draw background and all elements.
         self.screen.blit(self.bg, (0,0))
         self.ship.draw()
         self.alien_fleet.draw()
         # Draw HUD.
 
+        # Draw play button if game is inactive.
         if not self.game_active:
             self.play_button.draw()
             pygame.mouse.set_visible(True)
@@ -148,6 +151,7 @@ class AlienInvasion:
                 self._check_button_clicked()
 
     def _check_button_clicked(self):
+        """When play button is clicked, start a new game."""
         mouse_position = pygame.mouse.get_pos()
         if self.play_button.check_clicked(mouse_position):
             self.restart_game()

@@ -1,4 +1,5 @@
 import pygame
+import random
 from alien import Alien
 from typing import TYPE_CHECKING
 
@@ -15,10 +16,11 @@ class AlienFleet:
         self.fleet_direction = self.settings.fleet_direction
         self.fleet_drop_speed = self.settings.fleet_drop_speed
 
-        self.create_fleet()
+       # self.create_fleet()
 
     def create_fleet(self):
-        """Comment."""
+        """Calculate and create a staggered alien fleet."""
+        # Determine fleet size and position.
         alien_width = self.settings.alien_width
         alien_height = self.settings.alien_height
         screen_width = self.settings.screen_width
@@ -27,10 +29,11 @@ class AlienFleet:
         fleet_width, fleet_height = self.calculate_fleet_size(alien_width, screen_width, alien_height, screen_height)
         x_offset, y_offset = self.calculate_offsets(alien_width, alien_height, screen_width, fleet_width, fleet_height)
 
+        # Create staggered fleet pattern.
         self._create_rectangle_fleet(alien_width, alien_height, fleet_width, fleet_height, x_offset, y_offset)
 
     def _create_rectangle_fleet(self, alien_width, alien_height, fleet_width, fleet_height, x_offset, y_offset):
-        """Comment."""
+        """Create staggered fleet pattern."""
         for row in range(fleet_height):
             for col in range(fleet_width):
                 current_x = alien_width * col + x_offset
@@ -40,7 +43,7 @@ class AlienFleet:
                 self._create_alien(current_x, current_y)
 
     def calculate_offsets(self, alien_width, alien_height, screen_width, fleet_width, fleet_height):
-        """Comment."""
+        """Center the fleet."""
         half_screen = self.settings.screen_height // 2
         fleet_horizontal_space = fleet_width * alien_width
         fleet_vertical_space = fleet_height * alien_height
@@ -48,11 +51,8 @@ class AlienFleet:
         y_offset = int((half_screen - fleet_vertical_space) // 2)
         return x_offset,y_offset
 
-
-
-
     def calculate_fleet_size(self, alien_width, screen_width, alien_height, screen_height):
-        """Calculate the fleet size."""
+        """Determine the number of aliens that can fit horizontally and vertically.."""
         fleet_width = (screen_width // alien_width)
         fleet_height = ((screen_height / 2) // alien_height)
 
@@ -69,9 +69,9 @@ class AlienFleet:
         return int(fleet_width), int(fleet_height)
     
     def _create_alien(self, current_x: int, current_y: int):
-        """Comment."""
-        new_alien = Alien(self, current_x, current_y)
-
+        """Create an alien at the given position with a random image."""
+        image_file = random.choice(self.settings.alien_images)
+        new_alien = Alien(self, current_x, current_y, image_file)
         self.fleet.add(new_alien)
 
     def _check_fleet_edges(self):
@@ -84,27 +84,28 @@ class AlienFleet:
                 break
 
     def _drop_alien_fleet(self):
-        """Comment."""
+        """Drop the entire fleet down vertically.."""
         for alien in self.fleet:
             alien.y += self.fleet_drop_speed
 
 
     def update_fleet(self):
-        """Comment."""
+        """Update all aliens in the fleet and check for edges.."""
         self._check_fleet_edges()
         self.fleet.update()
 
     def draw(self):
-        """Comment."""
+        """Draw all aliens in fleet to the screen."""
         alien: 'Alien'
         for alien in self.fleet:
             alien.draw_alien()
 
     def check_collisions(self, other_group):
-        """Comment."""
+        """Check for collisions with another sprite group."""
         return pygame.sprite.groupcollide(self.fleet, other_group, True, True)
     
     def check_fleet_bottom(self):
+        """Return True if any alien has reached the bottom of the screen."""
         alien: Alien
         for alien in self.fleet:
             if alien.rect.bottom >= self.settings.screen_height:

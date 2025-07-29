@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 class Alien(Sprite):
     """A class to manage aliens."""
 
-    def __init__(self, fleet: 'AlienFleet', x: float , y: float):
+    def __init__(self, fleet: 'AlienFleet', x: float, y: float, image_file):
         """Create an alien object at the _____ position."""
         super().__init__()
 
@@ -21,7 +21,7 @@ class Alien(Sprite):
         self.settings = fleet.game.settings
 
         # Load the bullet.
-        self.image = pygame.image.load(self.settings.alien_file)
+        self.image = pygame.image.load(str(image_file))
         self.image = pygame.transform.scale(self.image, 
             (self.settings.alien_width, self.settings.alien_height)    
         )

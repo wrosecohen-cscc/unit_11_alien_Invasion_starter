@@ -13,20 +13,27 @@ class Settings:
         self.screen_width = 1200
         self.screen_height = 800
         self.FPS = 60
-        self.bg_file = Path.cwd() / 'Assets' / 'images' / 'Starbasesnow.png'
+        self.bg_file = Path.cwd() / 'Assets' / 'images' / 'Willabg.png'
 
         # Ship settings.
-        self.ship_file = Path.cwd() / 'Assets' / 'images' / 'ship2(no bg).png'
+        self.ship_file = Path.cwd() / 'Assets' / 'images' / 'WillaShip.png'
         self.ship_width = 40
         self.ship_height = 60
 
         # Bullet settings.
-        self.bullet_file = Path.cwd() / 'Assets' / 'images' / 'laserBlast.png'
+        self.bullet_file = Path.cwd() / 'Assets' / 'images' / 'WillaBlast.png'
         self.laser_sound = Path.cwd() / 'Assets' / 'sound' / 'laser.mp3'
         self.impact_sound = Path.cwd() / 'Assets' / 'sound' / 'impactSound.mp3'
        
         # Alien settings.
-        self.alien_file = Path.cwd() / 'Assets' / 'images' / 'enemy_4.png'
+        self.alien_images = [
+            Path.cwd() / 'Assets' / 'images' / 'alien_1.png',
+            Path.cwd() / 'Assets' / 'images' / 'alien_2.png',
+            Path.cwd() / 'Assets' / 'images' / 'alien_3.png',
+            Path.cwd() / 'Assets' / 'images' / 'alien_4.png',
+            Path.cwd() / 'Assets' / 'images' / 'alien_5.png',
+            Path.cwd() / 'Assets' / 'images' / 'alien_6.png'
+        ]
         self.alien_width = 40
         self.alien_height = 40
 
