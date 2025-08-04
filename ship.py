@@ -1,5 +1,11 @@
-import pygame
+"""
+Alien Invasion
+Willa Rose-Cohen
+This module handles the ship class and all it's functions.
+08-03-25
+"""
 
+import pygame
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:

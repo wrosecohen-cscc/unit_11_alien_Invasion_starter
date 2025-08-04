@@ -1,3 +1,10 @@
+"""
+Alien Invasion
+Willa Rose-Cohen
+This program is a modified version of the Alien Invasion game.
+08-03-25
+"""
+
 import sys
 import pygame
 from settings import Settings
@@ -37,7 +44,6 @@ class AlienInvasion:
 
         self.impact_sound = pygame.mixer.Sound(self.settings.impact_sound)
         self.impact_sound.set_volume(0.7)
-
 
         self.ship = Ship(self, Arsenal(self))
         self.alien_fleet = AlienFleet(self )
@@ -83,6 +89,7 @@ class AlienInvasion:
 
             # Update game stats level.
             self.game_stats.update_level
+
             # Update HUD view.
 
     def _check_game_status(self):
@@ -128,6 +135,7 @@ class AlienInvasion:
         self.screen.blit(self.bg, (0,0))
         self.ship.draw()
         self.alien_fleet.draw()
+        
         # Draw HUD.
 
         # Draw play button if game is inactive.

@@ -1,3 +1,10 @@
+"""
+Alien Invasion
+Willa Rose-Cohen
+This module handles the settings class and all it's functions.
+08-03-25
+"""
+
 from pathlib import Path
 
 class Settings:

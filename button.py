@@ -1,3 +1,10 @@
+"""
+Alien Invasion
+Willa Rose-Cohen
+This module handles the button class and all it's functions.
+08-03-25
+"""
+
 import pygame.font
 from typing import TYPE_CHECKING
 

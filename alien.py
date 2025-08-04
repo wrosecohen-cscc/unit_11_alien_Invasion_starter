@@ -1,5 +1,11 @@
-import pygame
+"""
+Alien Invasion
+Willa Rose-Cohen
+This module handles the aliens class and all it's functions.
+08-03-25
+"""
 
+import pygame
 from pygame.sprite import Sprite
 from typing import TYPE_CHECKING
 
@@ -30,7 +36,6 @@ class Alien(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        
 
         # Store the alien's position as a float.
         self.x = float(self.rect.x)
@@ -47,7 +52,6 @@ class Alien(Sprite):
         "Switch direction when edge is hit."
         return(self.rect.right >= self.boundries.right or self.rect.left <= self.boundries.left)
     
-
     def draw_alien(self):
         """Draw the alien to the screen."""
         self.screen.blit(self.image, self.rect)

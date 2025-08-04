@@ -1,3 +1,10 @@
+"""
+Alien Invasion
+Willa Rose-Cohen
+This module handles the alien fleet class and all it's functions.
+08-03-25
+"""
+
 import pygame
 import random
 from alien import Alien
@@ -7,9 +14,10 @@ if TYPE_CHECKING:
     from alien_invasion import AlienInvasion
 
 class AlienFleet:
+    """A class to manage the alien's fleet."""
 
     def __init__(self, game: 'AlienInvasion'):
-        """A class to manage the Alien's fleet."""
+        """Initialize the Alien's fleet."""
         self.game = game
         self.settings = game.settings
         self.fleet = pygame.sprite.Group()
@@ -88,7 +96,6 @@ class AlienFleet:
         for alien in self.fleet:
             alien.y += self.fleet_drop_speed
 
-
     def update_fleet(self):
         """Update all aliens in the fleet and check for edges.."""
         self._check_fleet_edges()
@@ -115,6 +122,3 @@ class AlienFleet:
     def check_destroyed_status(self):
         """Check if the ship has been destroyed."""
         return not self.fleet
-
-
-

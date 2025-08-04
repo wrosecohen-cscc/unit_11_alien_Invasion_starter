@@ -1,3 +1,10 @@
+"""
+Alien Invasion
+Willa Rose-Cohen
+This module handles the HUD class and all it's functions.
+08-03-25
+"""
+
 import pygame.font
 from typing import TYPE_CHECKING
 
@@ -6,7 +13,7 @@ if TYPE_CHECKING:
     from alien_invasion import AlienInvasion
 
 class HUD:
-    """Class to manage and render the game's heads-up display (HUD)."""
+    """A class to manage and render the game's heads-up display (HUD)."""
 
     def __init__(self, game: 'AlienInvasion') -> None:
         """Initialize HUD elements and references."""
