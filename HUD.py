@@ -36,10 +36,11 @@ class HUD:
         self.update_level()
 
     def update_scores(self):
-        """Refresh the current, max, and hi-score displays."""
+        """Refresh the current, max, hi-score, and level displays."""
         self._update_max_score()
         self.update_score()
         self._update_hi_score()
+        self.update_level()
 
     def _setup_life_image(self):
         """Prepare the ship image to be used as life icons."""

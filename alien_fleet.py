@@ -76,11 +76,11 @@ class AlienFleet:
         
         return int(fleet_width), int(fleet_height)
     
-    def _create_alien(self, current_x: int, current_y: int):
-        """Create an alien at the given position with a random image."""
-        image_file = random.choice(self.settings.alien_images)
-        new_alien = Alien(self, current_x, current_y, image_file)
-        self.fleet.add(new_alien)
+    def _create_alien(self, x, y, image_file=None):
+        if image_file is None:
+            image_file = random.choice(self.settings.alien_images)
+        alien = Alien(self, x, y, image_file)
+        self.fleet.add(alien)
 
     def _check_fleet_edges(self):
         alien: Alien
@@ -122,3 +122,234 @@ class AlienFleet:
     def check_destroyed_status(self):
         """Check if the ship has been destroyed."""
         return not self.fleet
+
+    def create_shape_from_map(self, shape_map, alien_width, alien_height, screen_width, screen_height):
+            """Creates an alien formation from a 2D shape map, centered on screen."""
+            shape_cols = len(shape_map[0])
+            shape_rows = len(shape_map)
+
+            available_space_x = screen_width - (2 * alien_width)
+            spacing_x = available_space_x // 14
+
+            available_space_y = (screen_height // 2) - 3 * alien_height
+            spacing_y = available_space_y // 4
+
+            shape_width = shape_cols * spacing_x
+            shape_height = shape_rows * spacing_y
+            x_offset = (screen_width - shape_width) // 2
+            y_offset = (screen_height // 2 - shape_height) // 2
+
+            for row_idx, row in enumerate(shape_map):
+                for col_idx, val in enumerate(row):
+                    if val == 1:
+                        image_file = random.choice(self.settings.alien_images)
+                        x = x_offset + col_idx * spacing_x
+                        y = y_offset + row_idx * spacing_y
+                        self._create_alien(x, y, image_file)
+
+    def create_heart_fleet(self):
+        """Creates a heart shaped fleet."""
+        heart_map = [
+            [0]*9,
+            [0]*9,
+            [0]*9,
+            [0,1,0,0,0,0,0,1,0],
+            [1,1,1,0,0,0,1,1,1],
+            [1,1,1,1,0,1,1,1,1],
+            [0,1,1,1,1,1,1,1,0],
+            [0,0,1,1,1,1,1,0,0],
+            [0,0,0,1,1,1,0,0,0],
+            [0,0,0,0,1,0,0,0,0],
+        ]
+        self.create_shape_from_map(
+            heart_map,
+            self.settings.alien_width,
+            self.settings.alien_height,
+            self.settings.screen_width,
+            self.settings.screen_height,
+        )
+
+    def create_diamond_fleet(self):
+        """Creates a diamond shaped fleet."""
+        diamond_map = [
+            [0]*5,
+            [0]*5,
+            [0]*5,
+            [0,0,1,0,0],
+            [0,1,1,1,0],
+            [1,1,1,1,1],
+            [0,1,1,1,0],
+            [0,0,1,0,0],
+        ]
+        self.create_shape_from_map(
+            diamond_map,
+            self.settings.alien_width,
+            self.settings.alien_height,
+            self.settings.screen_width,
+            self.settings.screen_height,
+        )
+
+    def create_horseshoe_fleet(self):
+        """Creates a horseshoe shaped fleet."""
+        horseshoe_map = [
+            [0]*14,
+            [0]*14,
+            [0]*14,
+            [1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+            [1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+            [1,1,0,0,0,0,0,0,0,0,0,0,1,1],
+            [1,1,1,0,0,0,0,0,0,0,0,1,1,1],
+            [1,1,1,1,0,0,0,0,0,0,1,1,1,1],
+            [1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        ]
+        self.create_shape_from_map(
+            horseshoe_map,
+            self.settings.alien_width,
+            self.settings.alien_height,
+            self.settings.screen_width,
+            self.settings.screen_height,
+        )
+
+    def create_triangle_fleet(self):
+        """Creates a triangle shaped fleet."""
+        triangle_map = [
+            [0]*9,
+            [0]*9.
+            [0]*9,
+            [0,0,0,0,1,0,0,0,0],
+            [0,0,0,1,1,1,0,0,0],
+            [0,0,1,1,1,1,1,0,0],
+            [0,1,1,1,1,1,1,1,0],
+            [1,1,1,1,1,1,1,1,1],
+        ]
+        self.create_shape_from_map(
+            triangle_map,
+            self.settings.alien_width,
+            self.settings.alien_height,
+            self.settings.screen_width,
+            self.settings.screen_height,
+        )
+
+    def create_rectangle_fleet(self):
+        """Creates a rectangle shaped fleet."""
+        rectangle_map = [
+            [0]*14,
+            [0]*14,
+            [0]*14,
+            [1]*14,
+            [1]*14,
+            [1]*14,
+            [1]*14,
+        ]
+        self.create_shape_from_map(
+            rectangle_map,
+            self.settings.alien_width,
+            self.settings.alien_height,
+            self.settings.screen_width,
+            self.settings.screen_height,
+        )
+
+    def create_x_fleet(self):
+        """Creates an x shaped fleet."""
+        x_map = [
+            [0]*9,
+            [0]*9,
+            [0]*9,
+            [0,1,0,0,0,0,0,1,0],
+            [0,0,1,0,0,0,1,0,0],
+            [0,0,0,1,0,1,0,0,0],
+            [0,0,0,0,1,0,0,0,0],
+            [0,0,0,1,0,1,0,0,0],
+            [0,0,1,0,0,0,1,0,0],
+            [0,1,0,0,0,0,0,1,0],
+        ]
+        self.create_shape_from_map(
+            x_map,
+            self.settings.alien_width,
+            self.settings.alien_height,
+            self.settings.screen_width,
+            self.settings.screen_height,
+        )
+
+    def create_cross_fleet(self):
+        """Creates a cross shaped fleet."""
+        cross_map = [
+            [0]*7,
+            [0]*7,
+            [0]*7,
+            [0,0,0,1,0,0,0],
+            [0,0,0,1,0,0,0],
+            [0,0,0,1,0,0,0],
+            [1,1,1,1,1,1,1],
+            [0,0,0,1,0,0,0],
+            [0,0,0,1,0,0,0],
+            [0,0,0,1,0,0,0],
+        ]
+        self.create_shape_from_map(
+            cross_map,
+            self.settings.alien_width,
+            self.settings.alien_height,
+            self.settings.screen_width,
+            self.settings.screen_height,
+        )
+
+    def create_spiral_fleet(self):
+        """Creates a spiral shaped fleet."""
+        spiral_map = [
+            [0]*7,
+            [0]*7,
+            [0]*7,
+            [1,1,1,1,1,1,1],
+            [1,0,0,0,0,0,1],
+            [1,0,1,1,1,0,1],
+            [1,0,1,0,1,0,1],
+            [1,0,1,1,1,0,1],
+            [1,0,0,0,0,0,1],
+            [1,1,1,1,1,1,1],
+        ]
+        self.create_shape_from_map(
+            spiral_map,
+            self.settings.alien_width,
+            self.settings.alien_height,
+            self.settings.screen_width,
+            self.settings.screen_height,
+        )
+
+    def create_o_fleet(self):
+        """Creates an 0 shaped fleet."""
+        o_map = [
+            [0]*7,
+            [0]*7,
+            [0]*7,
+            [0,1,1,1,1,1,0],
+            [1,0,0,0,0,0,1],
+            [1,0,0,0,0,0,1],
+            [1,0,0,0,0,0,1],
+            [1,0,0,0,0,0,1],
+            [1,0,0,0,0,0,1],
+            [0,1,1,1,1,1,0],
+        ]
+        self.create_shape_from_map(
+            o_map,
+            self.settings.alien_width,
+            self.settings.alien_height,
+            self.settings.screen_width,
+            self.settings.screen_height,
+        )
+
+    def create_random_fleet(self):
+        """Randomly choose and create one of the fleet shapes."""
+        shape_methods = [
+            self.create_rectangle_fleet,
+            self.create_heart_fleet,
+            self.create_diamond_fleet,
+            self.create_horseshoe_fleet,
+            self.create_triangle_fleet,
+            self.create_x_fleet,
+            self.create_cross_fleet,
+            self.create_spiral_fleet,
+            self.create_o_fleet,
+            
+        ]
+        self.fleet.empty()  # clear existing aliens
+        random.choice(shape_methods)()

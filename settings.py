@@ -20,15 +20,19 @@ class Settings:
         self.screen_width = 1200
         self.screen_height = 800
         self.FPS = 60
-        self.bg_file = Path.cwd() / 'Assets' / 'images' / 'Willabg.png'
+        self.bg_file = Path.cwd() / 'Assets' / 'images' / 'pixel_bg.png'
 
+        # Play button overlay image (full-screen transparent image)
+        self.play_button_overlay_file = Path.cwd() / 'Assets' / 'images' / 'button.png'
+        self.start_page_file = Path.cwd() / 'Assets' / 'images' / 'start_page.png'
+        
         # Ship settings.
-        self.ship_file = Path.cwd() / 'Assets' / 'images' / 'WillaShip.png'
+        self.ship_file = Path.cwd() / 'Assets' / 'images' / 'pixel_ship.png'
         self.ship_width = 40
         self.ship_height = 60
 
         # Bullet settings.
-        self.bullet_file = Path.cwd() / 'Assets' / 'images' / 'WillaBlast.png'
+        self.bullet_file = Path.cwd() / 'Assets' / 'images' / 'pixel_blast.png'
         self.laser_sound = Path.cwd() / 'Assets' / 'sound' / 'laser.mp3'
         self.impact_sound = Path.cwd() / 'Assets' / 'sound' / 'impactSound.mp3'
        
@@ -38,11 +42,10 @@ class Settings:
             Path.cwd() / 'Assets' / 'images' / 'alien_2.png',
             Path.cwd() / 'Assets' / 'images' / 'alien_3.png',
             Path.cwd() / 'Assets' / 'images' / 'alien_4.png',
-            Path.cwd() / 'Assets' / 'images' / 'alien_5.png',
-            Path.cwd() / 'Assets' / 'images' / 'alien_6.png'
         ]
         self.alien_width = 40
-        self.alien_height = 40
+        self.alien_height = 60
+    
 
         # Fleet settings.
         self.fleet_direction = 1
@@ -50,13 +53,16 @@ class Settings:
         # Button settings.
         self.button_width = 200
         self.button_height = 50
-        self.button_color = (76, 41, 0)
+        self.button_color = (193, 194, 217)
 
         # Font settings.
         self.text_color = (255, 255, 255)
         self.button_font_size = 40
         self.HUD_font_size = 20
         self.font_file = Path.cwd() / 'Assets' / 'Fonts' / 'Silkscreen' / 'Silkscreen-Bold.ttf'
+        
+        # HUD settings.
+        self.hud_height = 60
 
     def initialize_dynamic_settings(self):
         """Initialize the game's dynamic settings."""
