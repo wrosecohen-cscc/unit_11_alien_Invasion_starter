@@ -20,6 +20,7 @@ class GameStats():
         self.game = game
         self.settings = game.settings
         self.max_score = 0
+        self.starting_ship_count = 3
         self.init_saved_scores()
         self.reset_stats()
 
@@ -47,7 +48,7 @@ class GameStats():
 
     def reset_stats(self):
         """Resets the game's stats to start a new game."""
-        self.ships_left = self.settings.starting_ship_count
+        self.remaining_ships = self.starting_ship_count
         self.score = 0
         self.level = 1
 

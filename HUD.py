@@ -88,7 +88,7 @@ class HUD:
         # Draw remaining ships as life icons in the bottom-left corner
         current_x = self.padding
         current_y = self.boundaries.bottom - self.life_rect.height - self.padding
-        for _ in range(self.game_stats.ships_left):
+        for _ in range(self.game_stats.remaining_ships):
             self.screen.blit(self.life_image, (current_x, current_y))
             current_x += self.life_rect.width + self.padding
 
